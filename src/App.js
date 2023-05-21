@@ -1,12 +1,41 @@
 import React, { useState } from 'react';
 import './App.css';
+import axios from "axios";
+
+//Variables
+// const baseURL = "https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts";
+const baseURL = "https://app.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?langwritten=E&fileformat=mp4&pub=lffv&track=31";
+var filterVTT = new RegExp('(https://*S*.vtt)','g');
+
+
 
 function App({initialValue}) {
   const [testOutput, setTestOutput] = useState(false);
+
+  function getURL() {
+    axios
+      .get(baseURL)
+      .then((response) => {
+        let stringifiedResponse = JSON.stringify(response.data);
+        setTestOutput(JSON.stringify(response.data));
+        getVTTFromPubMediaLinksAPI(stringifiedResponse);
+        // console.log(response.data);
+      });
+  }
+
+  function getVTTFromPubMediaLinksAPI(json){
+    console.log(filterVTT.test(json));
+    // console.log(json.match(/(https:\/\/*S*.vtt)/));
+  }
+
+  
+
+  // handleSubmit function
   const handleSubmit = event => {
     event.preventDefault();
 
-   setTestOutput("Testing the setting of values");
+    getURL();
+
  }
 
   return(
@@ -14,6 +43,7 @@ function App({initialValue}) {
       <h1>JW.Org Video Captions Extractor</h1>
 
        <div className="testArea">{testOutput}</div>
+       
 
       <form onSubmit={handleSubmit}>
         <fieldset>
