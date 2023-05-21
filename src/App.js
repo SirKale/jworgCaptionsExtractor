@@ -5,8 +5,7 @@ import axios from "axios";
 //Variables
 // const baseURL = "https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts";
 const baseURL = "https://app.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?langwritten=E&fileformat=mp4&pub=lffv&track=31";
-var filterVTT = new RegExp('(https://*S*.vtt)','g');
-
+var filterVTT = /(https:\/\/\S*\.vtt)/g;
 
 
 function App({initialValue}) {
@@ -19,13 +18,12 @@ function App({initialValue}) {
         let stringifiedResponse = JSON.stringify(response.data);
         setTestOutput(JSON.stringify(response.data));
         getVTTFromPubMediaLinksAPI(stringifiedResponse);
-        // console.log(response.data);
       });
   }
 
   function getVTTFromPubMediaLinksAPI(json){
-    console.log(filterVTT.test(json));
-    // console.log(json.match(/(https:\/\/*S*.vtt)/));
+    let filteredResults = filterVTT.exec(json);
+    console.log(filteredResults[0]);
   }
 
   
