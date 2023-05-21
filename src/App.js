@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+function App({initialValue}) {
+  const [testOutput, setTestOutput] = useState(false);
+  const handleSubmit = event => {
+    event.preventDefault();
+
+   setTestOutput("Testing the setting of values");
+ }
+
+  return(
+    <div className="wrapper">
+      <h1>JW.Org Video Captions Extractor</h1>
+
+       <div className="testArea">{testOutput}</div>
+
+      <form onSubmit={handleSubmit}>
+        <fieldset>
+          <label>
+            <p>Link to video for extraction</p>
+            <input name="url" />
+          </label>
+        </fieldset>
+        <button type="submit">Begin Extraction</button>
+      </form>
     </div>
-  );
+  )
 }
 
 export default App;
