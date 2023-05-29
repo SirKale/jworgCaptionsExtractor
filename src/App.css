@@ -5,3 +5,15 @@
 .wrapper fieldset {
     margin: 20px 0;
 }
+
+.maxWidth {
+  width: 100%;
+}
+
+textarea {
+  height: 500px;
+}
+
+input {
+  width: 100%;
+}
